@@ -1,11 +1,11 @@
 const request = require("request");
 const parse = require("himalaya");
 const JSSoup = require("jssoup").default;
-var port = process.env.PORT || 8080;
+const {saveNewQuote, getTelegramQuote, getQuoteAmount, getAll} = require("../database/index");
 var quoteMap = new Map();
 var quoteAmount;
 
-const loadQuotes = () => {
+const loadQuotes = async () => {
     quoteMap.clear();
     request(
         {url: "http://sosso.fi/sammakkopalsta/" },
@@ -28,17 +28,28 @@ const loadQuotes = () => {
           console.log("loaded " + quoteAmount + " quotes");
         }
       )
-}
+};
 
-const getQuote = () => {
+const getQuote = async () => {
     if (quoteMap.size == 0){
         return "error: sammakkolampi on tyhjä"
     }
-    var quoteNumber = Math.floor(Math.random() * (quoteAmount - 1) );
-    return quoteMap.get(quoteNumber);
-}
+    var tgQuotes = await getQuoteAmount();
+    var quoteNumber = Math.floor(Math.random() * (quoteAmount + tgQuotes));
+    if (quoteNumber < quoteAmount) {
+        return quoteMap.get(quoteNumber);
+    } else {
+        return await getTelegramQuote(quoteNumber - quoteAmount);
+    }
+};
+
+const saveTGQuote = async (quote) => {
+    await saveNewQuote(quote);
+};
+
 
 module.exports = {
     loadQuotes,
     getQuote,
-}
+    saveTGQuote,
+};
