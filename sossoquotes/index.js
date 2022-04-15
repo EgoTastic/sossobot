@@ -1,6 +1,7 @@
 const request = require("request");
 const parse = require("himalaya");
 const JSSoup = require("jssoup").default;
+var port = process.env.PORT || 8080;
 var quoteMap = new Map();
 var quoteAmount;
 
