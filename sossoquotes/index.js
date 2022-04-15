@@ -16,8 +16,13 @@ const loadQuotes = () => {
           
           for (var i = 0; i < Object.keys(quotes).length; i++) {
           var quote = quotes[i].nextElement._text;
-          var frog = (quotes[i].nextElement.nextElement.nextElement._text);
-          var fullQuote = quote + "\n" + frog;
+          if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
+              var frog = "";
+          } else {
+            var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
+          }
+          
+          var fullQuote = quote + frog;
           quoteMap.set(i, fullQuote);
           }
           console.log("loaded " + quoteAmount + " quotes");
