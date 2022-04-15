@@ -2,7 +2,7 @@ require("dotenv").config();
 const { Telegraf } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const {getQuote, loadQuotes} = require("../sossoquotes/index");
-const overlord = false;
+var overlord = false;
 const overlordId = process.env.OVERLORDID;
 
 bot.command('reloadQuotes', ctx => {
