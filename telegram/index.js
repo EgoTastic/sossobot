@@ -9,7 +9,6 @@ bot.command('reloadQuotes', ctx => {
 
 bot.command("sammakko", ctx => {
     var quote = getQuote();
-    console.log("saatu " + quote);
     bot.telegram.sendMessage(ctx.chat.id, quote);
 })
 
