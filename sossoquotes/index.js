@@ -25,6 +25,9 @@ const loadQuotes = () => {
 }
 
 const getQuote = () => {
+    if (quoteMap.size == 0){
+        return "error: sammakkolampi on tyhjä"
+    }
     var quoteNumber = Math.floor(Math.random() * (quoteAmount - 1) );
     return quoteMap.get(quoteNumber);
 }
