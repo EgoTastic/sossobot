@@ -34,7 +34,6 @@ const getQuote = async () => {
     if (quoteMap.size == 0){
         return "error: sammakkolampi on tyhjä"
     }
-    return await getTelegramQuote(1);
     var tgQuotes = await getQuoteAmount();
     var quoteNumber = Math.floor(Math.random() * (quoteAmount + tgQuotes));
     if (quoteNumber < quoteAmount) {
