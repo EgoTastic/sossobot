@@ -1,12 +1,14 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
+const { Op } = require("sequelize");
 const Umzug = require("umzug");
 var sequelize;
 
-
+//Sequelize connection config
 sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
+    logging: false,
     dialectOptions: {
         ssl: {
             require: true,
@@ -15,12 +17,15 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
     }
 });
 
+//Quote model
 const Quote = require("./migrations/Quote")(sequelize, Sequelize.DataTypes);
 
+//Initial connection test, if fails bot shuts down
 const testConnection = async () => {
     await sequelize.authenticate();
 };
 
+//Migration, atm unnecessary due to structure of heroku postgres
 const runMigrations = async () => {
     const migrator = new Umzug({
         storage: "sequelize",
@@ -40,6 +45,7 @@ const runMigrations = async () => {
     });
 };
 
+//Initial test of connection and sync
 const connectToDatabase = async () => {
     try{
         await testConnection();
@@ -52,7 +58,7 @@ const connectToDatabase = async () => {
     }
 };
 
-
+//Returns telegram quote with id
 const getTelegramQuote = async (id) => {
     var quote = await Quote.findOne({
         where: {
@@ -62,10 +68,27 @@ const getTelegramQuote = async (id) => {
     return quote.quote;
 };
 
+//Returns the amount of saved telegram quotes
 const getQuoteAmount = async () => {
     return Quote.count();
 }
 
+//Returns telegram quote that has given search term (simple search)
+const getCategoryQuote = async (category) => {
+    var quote = await Quote.find({
+        where: {
+            quote: {
+                [Op.iLike]: '%' + category + '%'
+            }
+        }
+    })
+    if (quote) {
+        return quote.quote;
+    }
+    return quote;
+}
+
+//Saves new quote
 const saveNewQuote = async (quoteToAdd) => {
     return await Quote.create({quote: quoteToAdd})
 };
@@ -77,4 +100,5 @@ module.exports = {
   saveNewQuote,
   getTelegramQuote,
   getQuoteAmount,
+  getCategoryQuote,
 };

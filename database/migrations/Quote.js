@@ -1,3 +1,4 @@
+//Model for Quote table "quotes"
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("quote", {
         quote: {
