@@ -16,12 +16,18 @@ bot.command('overlord_stop', async ctx => {
     if (ctx.from.id == overlordId) {
         overlord = true;
     }
+    await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
+        reply_to_message_id: ctx.message.message_id,
+    });
 });
 
 bot.command('overlord_start', async ctx => {
     if (ctx.from.id == overlordId) {
         overlord = false;
     }
+    await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
+        reply_to_message_id: ctx.message.message_id,
+    });
 });
 
 bot.command("sammakko", async ctx => {
@@ -29,13 +35,18 @@ bot.command("sammakko", async ctx => {
         return;
     }
     var quote = await getQuote();
-    await ctx.reply(quote, reply_to_message_id=ctx.message.message_id);
+    console.log(ctx.message.message_id);
+    await bot.telegram.sendMessage(ctx.message.chat.id, quote, {
+        reply_to_message_id: ctx.message.message_id,
+    });
 });
 
 bot.command("kroak", async ctx => {
     if(ctx.message.reply_to_message && ctx.message.reply_to_message.text){
         await saveTGQuote(ctx.message.reply_to_message.text);
-        await bot.telegram.sendMessage(ctx.chat.id, "Sammakkolahti täyttyy");
+        await bot.telegram.sendMessage(ctx.message.chat.id, "Sammakkolahti täyttyy", {
+            reply_to_message_id: ctx.message.message_id,
+        });
     } 
 });
 
