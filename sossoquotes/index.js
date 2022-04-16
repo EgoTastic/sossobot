@@ -14,20 +14,20 @@ const loadQuotes = async () => {
           var quotes = soup.findAll("div", "perfect-quotes");
           quoteAmount = Object.keys(quotes).length;
           
-          for (var i = 0; i < Object.keys(quotes).length; i++) {
-          var quote = quotes[i].nextElement._text;
-          if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
-              var frog = "";
-          } else {
-            var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
-          }
+            for (var i = 0; i < Object.keys(quotes).length; i++) {
+            var quote = quotes[i].nextElement._text;
+            if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
+                var frog = "";
+            } else {
+                var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
+            }
           
           var fullQuote = quote + frog;
           quoteMap.set(i, fullQuote);
           }
           console.log("loaded " + quoteAmount + " quotes");
         }
-      )
+    )
 };
 
 const getQuote = async () => {

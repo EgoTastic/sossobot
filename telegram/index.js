@@ -29,7 +29,7 @@ bot.command("sammakko", async ctx => {
         return;
     }
     var quote = await getQuote();
-    bot.telegram.sendMessage(ctx.chat.id, quote);
+    ctx.reply(quote);
 });
 
 bot.command("kroak", async ctx => {
