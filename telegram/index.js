@@ -29,13 +29,13 @@ bot.command("sammakko", async ctx => {
         return;
     }
     var quote = await getQuote();
-    ctx.reply(quote);
+    await ctx.reply(quote, reply_to_message_id=ctx.message.message_id);
 });
 
 bot.command("kroak", async ctx => {
     if(ctx.message.reply_to_message && ctx.message.reply_to_message.text){
         await saveTGQuote(ctx.message.reply_to_message.text);
-        bot.telegram.sendMessage(ctx.chat.id, "Sammakkolahti täyttyy");
+        await bot.telegram.sendMessage(ctx.chat.id, "Sammakkolahti täyttyy");
     } 
 });
 
