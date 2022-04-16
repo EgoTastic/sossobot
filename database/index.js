@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const Umzug = require("umzug");
 var sequelize;
 
-//Sequelize connection config
+//Sequelize connection config (set only for heroku database)
 sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
