@@ -75,7 +75,7 @@ const getQuoteAmount = async () => {
 
 //Returns telegram quote that has given search term (simple search)
 const getCategoryQuote = async (category) => {
-    var quote = await Quote.find({
+    var quote = await Quote.findOne({
         where: {
             quote: {
                 [Op.iLike]: '%' + category + '%'
