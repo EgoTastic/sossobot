@@ -72,6 +72,17 @@ bot.command("kroak", async ctx => {
     } 
 });
 
+//Sahkojakaa
+bot.command("mita_sahko_tekee", async ctx => {
+    if(overlord){
+        return;
+    }
+    let jakaa = "Sähkö jakaa!\nSähkö jakaa!\nSähkö jakaa!";
+    await bot.telegram.sendMessage(ctx.message.chat.id, jakaa, {
+        reply_to_message_id: ctx.message.message_id,
+    });
+})
+
 //Initial connection to telegram API
 const startTelegramBot = async () => {
     try {
