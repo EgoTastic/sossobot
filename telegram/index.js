@@ -186,11 +186,6 @@ bot.command("lavan_oikea_puoli", async ctx => {
     sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
 })
 
-bot.on("text", async ctx => {
-    console.log(ctx);
-})
-
-
 //Initial connection to telegram API
 const startTelegramBot = async () => {
     try {
