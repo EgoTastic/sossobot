@@ -123,6 +123,16 @@ bot.command("mita_sahko_tekee", async ctx => {
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 })
 
+//sik100
+bot.command("sik100", async ctx => {
+    if(overlord){
+        return;
+    }
+    
+    let message = "Kohta se on ohi...";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
 //Simpsonit
 bot.command("ok", async ctx => {
     if(overlord){
