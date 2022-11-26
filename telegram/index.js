@@ -71,7 +71,7 @@ bot.command('postaa', async ctx => {
         if (message == "" || ctx.message.text == "/postaa" || ctx.message.text == "/postaa ") {
             return;
         }
-        await bot.telegram.sendMessage(testID, ("" + message));
+        await bot.telegram.sendMessage(sikID, ("" + message));
     }
 
 });
