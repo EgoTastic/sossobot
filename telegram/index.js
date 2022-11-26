@@ -67,8 +67,8 @@ bot.command('overlord_start', async ctx => {
 bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         let tgmessage = ctx.message.text;
-        let message = tgmessage.replace("/postaa", "");
-        if (message = "") {
+        let message = tgmessage.replace("/postaa ", "");
+        if (message == "" || ctx.message.text == "/postaa" || ctx.message.text == "/postaa ") {
             return;
         }
         await bot.telegram.sendMessage(testID, ("" + message));
