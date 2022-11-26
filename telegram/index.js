@@ -1,9 +1,12 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const {getQuote, loadQuotes, saveTGQuote, findQuote, findTGQuote} = require("../sossoquotes/index");
+const {getQuote, loadQuotes, findQuote } = require("../sossoquotes/index");
 var overlord = false;
 const overlordId = process.env.OVERLORDID;
+const overlordId2 = process.env.OVERLORDID2;
+const sikID = -1001044711778;
+const testID = 1001766021899;
 
 //Forces bot to reload websössö quotes
 bot.command('reloadQuotes', async ctx => {
@@ -15,8 +18,10 @@ bot.command('reloadQuotes', async ctx => {
 
 //Stops bot from listening to commands
 bot.command('overlord_stop', async ctx => {
-    if (ctx.from.id == overlordId) {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         overlord = true;
+    } else {
+        return;
     }
     await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
         reply_to_message_id: ctx.message.message_id,
@@ -25,12 +30,23 @@ bot.command('overlord_stop', async ctx => {
 
 //Starts bot to listen to commands
 bot.command('overlord_start', async ctx => {
-    if (ctx.from.id == overlordId) {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         overlord = false;
+    } else {
+        return;
     }
     await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
         reply_to_message_id: ctx.message.message_id,
     });
+});
+
+//Send message to SIK from bot
+bot.command('postaa', async ctx => {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
+        let post = ctx.message.text.split("/postaa ")[1];
+        await bot.telegram.sendMessage(testID, post);
+    }
+
 });
 
 //Finds either random quote or searches with keyword if command is "/sammakko keyword"
@@ -45,9 +61,6 @@ bot.command("sammakko", async ctx => {
     if (category){
         quote = await findQuote(category);
         if (!quote) {
-            quote = await findTGQuote(category);
-        }
-        if (!quote) {
             quote = "Ei sammakkoa hakukriteerillä";
         }
     } else {
@@ -59,18 +72,6 @@ bot.command("sammakko", async ctx => {
     });
 });
 
-//Saves new telegram quote
-bot.command("kroak", async ctx => {
-    if(overlord){
-        return;
-    }
-    if(ctx.message.reply_to_message && ctx.message.reply_to_message.text){
-        await saveTGQuote(ctx.message.reply_to_message.text);
-        await bot.telegram.sendMessage(ctx.message.chat.id, "Sammakkolahti täyttyy", {
-            reply_to_message_id: ctx.message.message_id,
-        });
-    } 
-});
 
 //Initial connection to telegram API
 const startTelegramBot = async () => {
@@ -82,7 +83,6 @@ const startTelegramBot = async () => {
         return process.exit(1);
     }
 }
-
 
 
 module.exports = {

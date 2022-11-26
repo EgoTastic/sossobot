@@ -1,6 +1,6 @@
 const request = require("request");
 const JSSoup = require("jssoup").default;
-const {saveNewQuote, getTelegramQuote, getQuoteAmount, getCategoryQuote} = require("../database/index");
+const {getQuoteAmount, getCategoryQuote} = require("../database/index");
 var quoteMap = new Map();
 var quoteAmount;
 
@@ -38,17 +38,13 @@ const loadQuotes = async () => {
 
 //Randomizes quote from websössö or telegram quotes
 const getQuote = async () => {
-    var tgQuotes = await getQuoteAmount();
-    if (quoteMap.size + tgQuotes == 0){
+    if (quoteMap.size == 0){
         return "error: sammakkolampi on tyhjä"
     };
     
-    var quoteNumber = Math.floor(Math.random() * (quoteAmount + tgQuotes));
-    if (quoteNumber < quoteAmount) {
-        return quoteMap.get(quoteNumber);
-    } else {
-        return await getTelegramQuote(quoteNumber - quoteAmount + 1);
-    };
+    var quoteNumber = Math.floor(Math.random() * (quoteAmount));
+    return quoteMap.get(quoteNumber);
+
 };
 
 //Searches quotes for word (simple search)
@@ -63,21 +59,10 @@ const findQuote = async (category) => {
     return found[Math.floor(Math.random()*found.length)];
 };
 
-//Relays quote to save to database
-const saveTGQuote = async (quote) => {
-    await saveNewQuote(quote);
-};
-
-//Relays search to database
-const findTGQuote = async (category) => {
-    return await getCategoryQuote(category);
-}
 
 
 module.exports = {
     loadQuotes,
     getQuote,
-    saveTGQuote,
     findQuote,
-    findTGQuote,
 };
