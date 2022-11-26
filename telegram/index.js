@@ -72,7 +72,7 @@ bot.command('postaa', async ctx => {
         if (post = "") {
             return;
         }
-        await bot.telegram.sendMessage(testID, ("asd" + vittu));
+        await bot.telegram.sendMessage(testID, ("asd" + teksti));
     }
 
 });
