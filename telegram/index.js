@@ -68,12 +68,11 @@ bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         let tgmessage = ctx.message.text;
         let post = tgmessage.replace("/postaa ", "");
-        console.log(post);
-        console.log(tgmessage);
+        let teksti ="vittu"
         if (post = "") {
             return;
         }
-        await bot.telegram.sendMessage(testID, post);
+        await bot.telegram.sendMessage(testID, ("asd" + vittu));
     }
 
 });
