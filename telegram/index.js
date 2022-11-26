@@ -16,6 +16,32 @@ bot.command('reloadQuotes', async ctx => {
     await loadQuotes();
 });
 
+bot.hears("moi", async ctx => {
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, "moi");
+})
+
+const sendToTelegram = async (chatId, replyId, message) => {
+    try {
+        await bot.telegram.sendMessage(chatId, message, {
+            reply_to_message_id: replyId,
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const sendPhotoToTelegram = async(chatId, replyId, photoURL) => {
+    try {
+        await bot.telegram.sendPhoto(chatId, photoURL, {
+        reply_to_message_id: replyId,
+    });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 //Stops bot from listening to commands
 bot.command('overlord_stop', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
@@ -23,11 +49,9 @@ bot.command('overlord_stop', async ctx => {
     } else {
         return;
     }
-    await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
-        reply_to_message_id: ctx.message.message_id,
-    });
+    let message = "All hail the overlord!";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 });
-
 //Starts bot to listen to commands
 bot.command('overlord_start', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
@@ -35,9 +59,8 @@ bot.command('overlord_start', async ctx => {
     } else {
         return;
     }
-    await bot.telegram.sendMessage(ctx.message.chat.id, "All hail the overlord!", {
-        reply_to_message_id: ctx.message.message_id,
-    });
+    let message = "All hail the overlord!";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 });
 
 //Send message to SIK from bot
@@ -61,16 +84,97 @@ bot.command("sammakko", async ctx => {
     if (category){
         quote = await findQuote(category);
         if (!quote) {
-            quote = "Ei sammakkoa hakukriteerillä";
+            message = "Ei sammakkoa hakukriteerillä";
         }
     } else {
-        quote = await getQuote();
+        message = await getQuote();
     }
 
-    await bot.telegram.sendMessage(ctx.message.chat.id, quote, {
-        reply_to_message_id: ctx.message.message_id,
-    });
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 });
+
+//Sahkojakaa
+bot.command("mita_sahko_tekee", async ctx => {
+    if(overlord){
+        return;
+    }
+    
+    let message = "Sähkö jakaa!\nSähkö jakaa!\nSähkö jakaa!\nSähkö jakaa!";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//sik100
+bot.command("sik100", async ctx => {
+    if(overlord){
+        return;
+    }
+    
+    let message = "Kohta se on ohi...";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//Simpsonit
+bot.command("ok", async ctx => {
+    if(overlord){
+        return;
+    }
+    
+    let message = "iha ok, mut ootteko kattonu simpsonit sarjasta jakson himo läski homer :D siinä esiintyy koko simpsonit perhe eli myös bart simpsons homer poika fanit saavat nauraa ja naurattaahan se tietty myös vaikka homerin läski kuteet ja muut :D kannattaa kattoo nopee";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//Jappadaida
+bot.command("jappadaida", async ctx => {
+    if(overlord) return;
+    
+    let message = "Hyvä KIK!";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//EZ4SIK
+bot.command("ez4sik", async ctx => {
+    if (overlord) return;
+    
+    let message = "https://soundcloud.com/the-haalarz/ez4sik";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//Perjantai
+bot.command("perjantai", async ctx => {
+    if (overlord) return;
+    
+    let message = "https://www.ukko.fi/pojat";
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+})
+
+//Lavan oikee puoli
+bot.command("00_00_lavan_oikee_puoli", async ctx => {
+    if (overlord) return;
+    
+    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+})
+
+bot.command("00_00_lavan_oikea_puoli", async ctx => {
+    if (overlord) return;
+
+    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+})
+
+bot.command("lavan_oikee_puoli", async ctx => {
+    if (overlord) return;
+    
+    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+})
+
+bot.command("lavan_oikea_puoli", async ctx => {
+    if (overlord) return;
+    
+    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+})
 
 
 //Initial connection to telegram API
@@ -86,5 +190,5 @@ const startTelegramBot = async () => {
 
 
 module.exports = {
-    startTelegramBot,
+    startTelegramBot
 }
