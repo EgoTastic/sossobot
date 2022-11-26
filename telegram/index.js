@@ -66,9 +66,10 @@ bot.command('overlord_start', async ctx => {
 //Send message to SIK from bot
 bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
-        let post = ctx.message.text.split("/postaa ")[1];
+        let tgmessage = ctx.message.text.split("/postaa ")[1];
+        let post = tgmessage.substring(8);
         console.log(post);
-        await bot.telegram.sendMessage(testID, "lol");
+        await bot.telegram.sendMessage(testID, post);
     }
 
 });
