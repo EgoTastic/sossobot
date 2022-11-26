@@ -67,8 +67,9 @@ bot.command('overlord_start', async ctx => {
 bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         let tgmessage = ctx.message.text;
-        let post = tgmessage.substring(8);
+        let post = tgmessage.replace("/postaa ", "");
         console.log(post);
+        console.log(tgmessage);
         if (post = "") {
             return;
         }
