@@ -1,6 +1,5 @@
 const request = require("request");
 const JSSoup = require("jssoup").default;
-const {getQuoteAmount, getCategoryQuote} = require("../database/index");
 var quoteMap = new Map();
 var quoteAmount;
 
