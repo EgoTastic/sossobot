@@ -67,7 +67,8 @@ bot.command('overlord_start', async ctx => {
 bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         let post = ctx.message.text.split("/postaa ")[1];
-        await bot.telegram.sendMessage(testID, post);
+        console.log(post);
+        await bot.telegram.sendMessage(testID, "lol");
     }
 
 });
