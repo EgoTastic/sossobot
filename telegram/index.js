@@ -6,7 +6,7 @@ var overlord = false;
 const overlordId = process.env.OVERLORDID;
 const overlordId2 = process.env.OVERLORDID2;
 const sikID = -1001044711778;
-const testID = 1001766021899;
+const testID = -1001766021899;
 
 //Forces bot to reload websössö quotes
 bot.command('reloadQuotes', async ctx => {
