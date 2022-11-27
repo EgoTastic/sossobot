@@ -49,8 +49,10 @@ const getQuote = async () => {
 //Searches quotes for word (simple search)
 const findQuote = async (category) => {
     var found = new Array();
+    console.log("haetaan: " + category)
     for (let quote of quoteMap.values()){
         if (quote.toLowerCase().includes(category.toLowerCase())) {
+            console.log("matchi: " + quote);
             found.push(quote);
         };
     };

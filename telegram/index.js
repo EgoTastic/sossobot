@@ -86,7 +86,9 @@ bot.command("sammakko", async ctx => {
     let message;
 
     if (category){
+        console.log("kategoria havaittu hakusana: " + category);
         message = await findQuote(category);
+        console.log("löydetty:" + message);
         if (!message) {
             message = "Ei sammakkoa hakukriteerillä";
         }
