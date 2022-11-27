@@ -83,11 +83,11 @@ bot.command("sammakko", async ctx => {
     }
 
     let category = ctx.message.text.split(" ")[1];
-    let quote;
+    let message;
 
     if (category){
-        quote = await findQuote(category);
-        if (!quote) {
+        message = await findQuote(category);
+        if (!message) {
             message = "Ei sammakkoa hakukriteerillä";
         }
     } else {
