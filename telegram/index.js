@@ -1,9 +1,13 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const {getQuote, loadQuotes, saveTGQuote, findQuote, findTGQuote} = require("../sossoquotes/index");
+const {getQuote, loadQuotes, findQuote } = require("../sossoquotes/index");
 var overlord = false;
 const overlordId = process.env.OVERLORDID;
+const overlordId2 = process.env.OVERLORDID2;
+const sikID = -1001044711778;
+const testID = -1001766021899;
+var lava;
 
 
 bot.hears("moi", async ctx => {
@@ -25,6 +29,10 @@ bot.command('reloadQuotes', async ctx => {
     }
     
 });
+
+bot.hears("moi", async ctx => {
+    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, "moi");
+})
 
 const sendToTelegram = async (chatId, replyId, message) => {
     try {
@@ -48,26 +56,39 @@ const sendPhotoToTelegram = async(chatId, replyId, photoURL) => {
     }
 }
 
-
 //Stops bot from listening to commands
 bot.command('overlord_stop', async ctx => {
-    if (ctx.from.id == overlordId) {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         overlord = true;
+    } else {
+        return;
     }
-    
     let message = "All hail the overlord!";
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
-
 });
 
 //Starts bot to listen to commands
 bot.command('overlord_start', async ctx => {
-    if (ctx.from.id == overlordId) {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
         overlord = false;
+    } else {
+        return;
     }
-    
     let message = "All hail the overlord!";
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
+});
+
+//Send message to SIK from bot
+bot.command('postaa', async ctx => {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
+        let tgmessage = ctx.message.text;
+        let message = tgmessage.replace("/postaa ", "");
+        if (message == "" || ctx.message.text == "/postaa" || ctx.message.text == "/postaa ") {
+            return;
+        }
+        await bot.telegram.sendMessage(sikID, ("" + message));
+    }
+
 });
 
 //Finds either random quote or searches with keyword if command is "/sammakko keyword"
@@ -80,10 +101,9 @@ bot.command("sammakko", async ctx => {
     let message;
 
     if (category){
+        console.log("kategoria havaittu hakusana: " + category);
         message = await findQuote(category);
-        if (!message) {
-            message = await findTGQuote(category);
-        }
+        console.log("löydetty:" + message);
         if (!message) {
             message = "Ei sammakkoa hakukriteerillä";
         }
@@ -92,25 +112,6 @@ bot.command("sammakko", async ctx => {
     }
 
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
-});
-
-//Saves new telegram quote
-bot.command("kroak", async ctx => {
-    if(overlord){
-        return;
-    }
-    
-    try {
-        if(ctx.message.reply_to_message && ctx.message.reply_to_message.text){
-            await saveTGQuote(ctx.message.reply_to_message.text);
-            await bot.telegram.sendMessage(ctx.message.chat.id, "Sammakkolahti täyttyy", {
-                reply_to_message_id: ctx.message.message_id,
-            });
-        } 
-    }
-    catch (error) {
-        console.log(error);
-    }
 });
 
 //Sahkojakaa
@@ -123,15 +124,6 @@ bot.command("mita_sahko_tekee", async ctx => {
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 })
 
-//sik100
-bot.command("sik100", async ctx => {
-    if(overlord){
-        return;
-    }
-    
-    let message = "Kohta se on ohi...";
-    await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
-})
 
 //Simpsonit
 bot.command("ok", async ctx => {
@@ -170,31 +162,40 @@ bot.command("perjantai", async ctx => {
 //Lavan oikee puoli
 bot.command("00_00_lavan_oikee_puoli", async ctx => {
     if (overlord) return;
-    
-    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
-    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    lava++;
+    if (lava % 7 === 0) {
+        let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+        sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    }
 })
 
 bot.command("00_00_lavan_oikea_puoli", async ctx => {
     if (overlord) return;
-
-    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
-    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    lava++;
+    if (lava % 7 === 0) {
+        let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+        sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    }
 })
 
 bot.command("lavan_oikee_puoli", async ctx => {
     if (overlord) return;
-    
-    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
-    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    lava++;
+    if (lava % 7 === 0) {
+        let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+        sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    }
 })
 
 bot.command("lavan_oikea_puoli", async ctx => {
     if (overlord) return;
-    
-    let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
-    sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    lava++;
+    if (lava % 7 === 0) {
+        let photoURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/00.png";
+        sendPhotoToTelegram(ctx.message.chat.id, ctx.message.message_id, photoURL);
+    }
 })
+
 
 //Initial connection to telegram API
 const startTelegramBot = async () => {
@@ -205,12 +206,10 @@ const startTelegramBot = async () => {
         console.log("Telegram connection failed");
         return process.exit(1);
     }
+    lava = 0;
 }
 
 
-
-
-
 module.exports = {
-    startTelegramBot,
+    startTelegramBot
 }
