@@ -17,7 +17,10 @@ const loadQuotes = async () => {
             for (var i = 0; i < quoteAmount; i++) {
                 console.log(i);
                 var quote = quotes[i].nextElement._text;
-                if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
+                if (quotes[i].nextElement.nextElement.nextElement._text = undefined) {
+                    var frog = "";
+                }
+                else if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
                     var frog = "";
                 } else {
                     var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
