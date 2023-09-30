@@ -13,7 +13,6 @@ const loadQuotes = async () => {
             var soup = new JSSoup(body);
             var quotes = soup.findAll("div", "perfect-quotes");
             quoteAmount = Object.keys(quotes).length;
-            console.log(quotes);
           
             for (var i = 0; i < quoteAmount; i++) {
                 console.log(quotes[i]);
