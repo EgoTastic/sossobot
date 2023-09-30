@@ -15,10 +15,8 @@ const loadQuotes = async () => {
             quoteAmount = Object.keys(quotes).length;
           
             for (var i = 0; i < quoteAmount; i++) {
-                console.log(quotes[i]);
+                console.log(i);
                 var quote = quotes[i].nextElement._text;
-                console.log(quotes[i].nextElement._text);
-                console.log(quotes[i].nextElement.nextElement.nextElement._text);
                 if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
                     var frog = "";
                 } else {
@@ -26,6 +24,7 @@ const loadQuotes = async () => {
                 }
           
             var fullQuote = quote + frog;
+            console.log(fullQuote);
             quoteMap.set(i, fullQuote);
             }
             quoteAmount = quoteMap.size;
