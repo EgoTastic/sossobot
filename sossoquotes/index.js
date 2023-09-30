@@ -13,9 +13,13 @@ const loadQuotes = async () => {
             var soup = new JSSoup(body);
             var quotes = soup.findAll("div", "perfect-quotes");
             quoteAmount = Object.keys(quotes).length;
+            console.log(quotes);
           
             for (var i = 0; i < quoteAmount; i++) {
+                console.log(quotes[i]);
                 var quote = quotes[i].nextElement._text;
+                console.log(quotes[i].nextElement._text);
+                console.log(quotes[i].nextElement.nextElement.nextElement._text);
                 if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
                     var frog = "";
                 } else {
