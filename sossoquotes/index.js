@@ -21,8 +21,9 @@ const loadQuotes = async () => {
                 } else {
                     var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
                 }
-          
+            
             var fullQuote = quote + frog;
+            console.log(fullQuote);
             quoteMap.set(i, fullQuote);
             }
             quoteAmount = quoteMap.size;
