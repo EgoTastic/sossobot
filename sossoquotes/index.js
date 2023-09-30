@@ -19,13 +19,13 @@ const loadQuotes = async () => {
                 console.log(quotes[i].nextElement)
                 var quote = quotes[i].nextElement._text;
                 
-                if (quotes[i].nextElement.nextElement.nextElement._text = undefined) {
+                if (quotes[i].nextElement.nextElement._text = undefined) {
                     var frog = "";
                 }
-                else if (!quotes[i].nextElement.nextElement.nextElement._text.includes("-")){
+                else if (!quotes[i].nextElement.nextElement._text.includes("-")){
                     var frog = "";
                 } else {
-                    var frog = "\n" + (quotes[i].nextElement.nextElement.nextElement._text);
+                    var frog = "\n" + (quotes[i].nextElement.nextElement._text);
                 }
           
             var fullQuote = quote + frog;
