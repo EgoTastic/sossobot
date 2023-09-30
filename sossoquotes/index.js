@@ -16,8 +16,7 @@ const loadQuotes = async () => {
           
             for (var i = 0; i < quoteAmount; i++) {
                 console.log(i);
-                console.log(quotes[i].nextElement._text);
-                console.log(quotes[i].nextElement.nextElement)
+                console.log(quotes[i].nextElement)
                 var quote = quotes[i].nextElement._text;
                 
                 if (quotes[i].nextElement.nextElement.nextElement._text = undefined) {
