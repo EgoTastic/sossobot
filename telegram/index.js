@@ -58,7 +58,7 @@ const sendPhotoToTelegram = async(chatId, replyId, photoURL) => {
 
 const sendAudioToTelegram = async(chatId, replyId, audioURL) => {
     try {
-        await bot.telegram.sendPhoto(chatId, audioURL, {
+        await bot.telegram.sendAudio(chatId, audioURL, {
         reply_to_message_id: replyId,
     });
     }
