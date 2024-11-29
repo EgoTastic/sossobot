@@ -89,6 +89,17 @@ bot.command('overlord_start', async ctx => {
     await sendToTelegram(ctx.message.chat.id, ctx.message.message_id, message);
 });
 
+//Starts bot to listen to commands
+bot.command('audio_test', async ctx => {
+    if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
+        overlord = false;
+    } else {
+        return;
+    }
+    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyv%C3%A4%C3%A4_Joulua_t_S%C3%B6ss%C3%B6.mp3";
+    await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL);
+});
+
 //Send message to SIK from bot
 bot.command('postaa', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
@@ -109,12 +120,12 @@ bot.command("sammakko", async ctx => {
     }
 
     let arvonta = Math.floor(Math.random() * 100);
-    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyvää_Joulua_t_Sössö.mp3";
+    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyv%C3%A4%C3%A4_Joulua_t_S%C3%B6ss%C3%B6.mp3";
     let date = new Date();
     let month = date.getMonth();
 
     if (month == 11 && arvonta == 0){
-        await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL)
+        await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL);
     }
 
     let category = ctx.message.text.split(" ")[1];
