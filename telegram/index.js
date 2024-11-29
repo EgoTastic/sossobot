@@ -120,10 +120,9 @@ bot.command("sammakko", async ctx => {
     }
 
     let arvonta = Math.floor(Math.random() * 10);
-    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyv%C3%A4%C3%A4_Joulua_t_S%C3%B6ss%C3%B6.mp3";
+    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyvaa_Joulua.mp3";
     let date = new Date();
     let month = date.getMonth();
-    console.log(arvonta + " " + month)
 
     if (month == 11 && arvonta == 0){
         await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL);
