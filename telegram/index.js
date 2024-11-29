@@ -96,7 +96,7 @@ bot.command('audio_test', async ctx => {
     } else {
         return;
     }
-    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyv%C3%A4%C3%A4_Joulua_t_S%C3%B6ss%C3%B6.mp3";
+    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyvaa_Joulua.mp3";
     await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL);
 });
 
