@@ -56,6 +56,17 @@ const sendPhotoToTelegram = async(chatId, replyId, photoURL) => {
     }
 }
 
+const sendAudioToTelegram = async(chatId, replyId, audioURL) => {
+    try {
+        await bot.telegram.sendPhoto(chatId, audioURL, {
+        reply_to_message_id: replyId,
+    });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 //Stops bot from listening to commands
 bot.command('overlord_stop', async ctx => {
     if (ctx.from.id == overlordId || ctx.from.id == overlordId2 ) {
@@ -95,6 +106,15 @@ bot.command('postaa', async ctx => {
 bot.command("sammakko", async ctx => {
     if(overlord){
         return;
+    }
+
+    let arvonta = Math.floor(Math.random() * 100);
+    let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyvää_Joulua_t_Sössö.mp3";
+    let date = new Date();
+    let month = date.getMonth();
+
+    if (month == 11 && arvonta == 0){
+        await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL)
     }
 
     let category = ctx.message.text.split(" ")[1];
