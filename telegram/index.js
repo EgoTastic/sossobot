@@ -119,13 +119,14 @@ bot.command("sammakko", async ctx => {
         return;
     }
 
-    let arvonta = Math.floor(Math.random() * 10);
+    let arvonta = Math.floor(Math.random() * 20);
     let audioURL = "https://raw.githubusercontent.com/EgoTastic/sossobot/master/telegram/Hyvaa_Joulua.mp3";
     let date = new Date();
     let month = date.getMonth();
 
     if (month == 11 && arvonta == 0){
         await sendAudioToTelegram(ctx.message.chat.id, ctx.message.message_id, audioURL);
+        return;
     }
 
     let category = ctx.message.text.split(" ")[1];
